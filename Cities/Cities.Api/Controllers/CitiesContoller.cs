@@ -1,4 +1,4 @@
-﻿using Cities.Core;
+﻿using Cities.Core.Entities;
 using Cities.Infrastucture;
 using Microsoft.AspNetCore.Mvc;
 using System;

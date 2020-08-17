@@ -1,4 +1,4 @@
-﻿using Cities.Core;
+﻿using Cities.Core.Entities;
 using System.Collections.Generic;
 
 namespace Cities.Infrastucture

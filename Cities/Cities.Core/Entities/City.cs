@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cities.Core
+namespace Cities.Core.Entities
 {
     public class City
     {
