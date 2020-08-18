@@ -66,7 +66,7 @@ namespace Cities.Api.Controllers
             }
 
             PointOfInterest pointOfInterest = _mapper.Map<PointOfInterestForCreation, PointOfInterest>(pointOfInterestForCreation);
-            int maxPointOfInterestId = city.PointsOfInterestCount > 0 ? city.PointsOfInterest.Max(x => x.Id) : 0;
+            int maxPointOfInterestId = _citiesContext.Cities.SelectMany(x => x.PointsOfInterest).Max(x => x.Id);
             pointOfInterest.Id = ++maxPointOfInterestId;
             city.PointsOfInterest.Add(pointOfInterest);
 
