@@ -136,5 +136,30 @@ namespace Cities.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int cityId, int id)
+        {
+            City city = _citiesContext.Cities.SingleOrDefault(x => x.Id == cityId);
+            if (city == null)
+            {
+                return NotFound(nameof(cityId));
+            }
+
+            if (city.PointsOfInterest == null)
+            {
+                return NotFound();
+            }
+
+            PointOfInterest pointOfInterest = city.PointsOfInterest.SingleOrDefault(x => x.Id == id);
+            if (pointOfInterest == null)
+            {
+                return NotFound(nameof(id));
+            }
+
+            city.PointsOfInterest.Remove(pointOfInterest);
+
+            return NoContent();
+        }
     }
 }
