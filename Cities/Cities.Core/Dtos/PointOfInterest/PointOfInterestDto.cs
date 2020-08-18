@@ -1,6 +1,6 @@
 ﻿namespace Cities.Core.Dtos.PointOfInterest
 {
-    public class PointOfInterestForCreation
+    public class PointOfInterestDto
     {
         public string Name { get; set; }
 

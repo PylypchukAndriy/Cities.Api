@@ -8,7 +8,8 @@ namespace Cities.Core.Profiles
     {
         public PointOfInterestProfile()
         {
-            CreateMap<PointOfInterestForCreation, PointOfInterest>();
+            CreateMap<PointOfInterestForCreationDto, PointOfInterest>();
+            CreateMap<PointOfInterestForUpdateDto, PointOfInterest>();
         }
     }
 }

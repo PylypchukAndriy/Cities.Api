@@ -57,7 +57,7 @@ namespace Cities.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int cityId, PointOfInterestForCreation pointOfInterestForCreation)
+        public IActionResult Create(int cityId, [FromBody] PointOfInterestForCreationDto pointOfInterestForCreation)
         {
             City city = _citiesContext.Cities.SingleOrDefault(x => x.Id == cityId);
             if (city == null)
@@ -65,12 +65,37 @@ namespace Cities.Api.Controllers
                 return NotFound(nameof(cityId));
             }
 
-            PointOfInterest pointOfInterest = _mapper.Map<PointOfInterestForCreation, PointOfInterest>(pointOfInterestForCreation);
+            PointOfInterest pointOfInterest = _mapper.Map<PointOfInterestForCreationDto, PointOfInterest>(pointOfInterestForCreation);
             int maxPointOfInterestId = _citiesContext.Cities.SelectMany(x => x.PointsOfInterest).Max(x => x.Id);
             pointOfInterest.Id = ++maxPointOfInterestId;
             city.PointsOfInterest.Add(pointOfInterest);
 
             return CreatedAtRoute("GetCityPointsOfIterest", new { cityId, pointOfInterest.Id }, pointOfInterest);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int cityId, int id, [FromBody] PointOfInterestForUpdateDto pointOfInterestForUpdate)
+        {
+            City city = _citiesContext.Cities.SingleOrDefault(x => x.Id == cityId);
+            if (city == null)
+            {
+                return NotFound(nameof(cityId));
+            }
+
+            if (city.PointsOfInterest == null)
+            {
+                return NotFound();
+            }
+
+            PointOfInterest pointOfInterest = city.PointsOfInterest.SingleOrDefault(x => x.Id == id);
+            if (pointOfInterest == null)
+            {
+                return NotFound(nameof(id));
+            }
+
+            _mapper.Map(pointOfInterestForUpdate, pointOfInterest);
+
+            return NoContent();
         }
     }
 }

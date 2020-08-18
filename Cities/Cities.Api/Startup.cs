@@ -1,4 +1,5 @@
 using AutoMapper;
+using Cities.Core.Dtos.PointOfInterest;
 using Cities.Core.Profiles;
 using Cities.Infrastucture;
 using Cities.Infrastucture.Validators;
@@ -16,7 +17,7 @@ namespace Cities.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<PointOfInterestForCreationValidator>());
+            services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<PointOfInterestDtoValidator<PointOfInterestDto>>());
             services.AddAutoMapper(typeof(PointOfInterestProfile));
             services.AddSingleton<CitiesContext>();
         }

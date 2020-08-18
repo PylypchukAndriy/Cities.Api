@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Cities.Infrastucture.Validators
 {
-    public class PointOfInterestForCreationValidator : AbstractValidator<PointOfInterestForCreation>
+    public class PointOfInterestDtoValidator<T> : AbstractValidator<T> where T : PointOfInterestDto
     {
-        public PointOfInterestForCreationValidator()
+        public PointOfInterestDtoValidator()
         {
             RuleFor(x => x.Name)
                 .NotNull()
