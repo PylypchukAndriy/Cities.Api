@@ -1,6 +1,8 @@
 using AutoMapper;
 using Cities.Core.Profiles;
 using Cities.Infrastucture;
+using Cities.Infrastucture.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +16,7 @@ namespace Cities.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<PointOfInterestForCreationValidator>());
             services.AddAutoMapper(typeof(PointOfInterestProfile));
             services.AddSingleton<CitiesContext>();
         }
