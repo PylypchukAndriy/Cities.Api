@@ -20,7 +20,8 @@ namespace Cities.Infrastucture
                         new PointOfInterest
                         {
                             Id = 1,
-                            Name = "Lake"
+                            Name = "Lake",
+                            Description = "Beautiful lake in centre of the town"
                         }
                     }
                 },
@@ -33,12 +34,14 @@ namespace Cities.Infrastucture
                         new PointOfInterest
                         {
                             Id = 2,
-                            Name = "Restauarants"
+                            Name = "Restauarants",
+                            Description = "Fashionable restaurant"
                         },
                         new PointOfInterest
                         {
                             Id = 3,
-                            Name = "High Castle"
+                            Name = "High Castle",
+                            Description = "Place to be"
                         }
                     }
                 },
@@ -57,7 +60,8 @@ namespace Cities.Infrastucture
                         new PointOfInterest
                         {
                             Id = 5,
-                            Name = "Buildings"
+                            Name = "Buildings",
+                            Description = "Amazing architectural solutions"
                         }
                     }
                 }
