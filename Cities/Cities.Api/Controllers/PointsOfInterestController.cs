@@ -2,6 +2,7 @@
 using Cities.Core.Dtos.PointOfInterest;
 using Cities.Core.Entities;
 using Cities.Infrastucture;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -91,6 +92,44 @@ namespace Cities.Api.Controllers
             if (pointOfInterest == null)
             {
                 return NotFound(nameof(id));
+            }
+
+            _mapper.Map(pointOfInterestForUpdate, pointOfInterest);
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePartially(int cityId, int id, [FromBody] JsonPatchDocument<PointOfInterestForUpdateDto> document)
+        {
+            City city = _citiesContext.Cities.SingleOrDefault(x => x.Id == cityId);
+            if (city == null)
+            {
+                return NotFound(nameof(cityId));
+            }
+
+            if (city.PointsOfInterest == null)
+            {
+                return NotFound();
+            }
+
+            PointOfInterest pointOfInterest = city.PointsOfInterest.SingleOrDefault(x => x.Id == id);
+            if (pointOfInterest == null)
+            {
+                return NotFound(nameof(id));
+            }
+
+            PointOfInterestForUpdateDto pointOfInterestForUpdate = new PointOfInterestForUpdateDto
+            {
+                Name = pointOfInterest.Name,
+                Description = pointOfInterest.Description
+            };
+
+            document.ApplyTo(pointOfInterestForUpdate, ModelState);
+
+            if (!ModelState.IsValid || !TryValidateModel(pointOfInterestForUpdate))
+            {
+                return BadRequest(ModelState);
             }
 
             _mapper.Map(pointOfInterestForUpdate, pointOfInterest);

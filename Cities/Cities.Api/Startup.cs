@@ -17,7 +17,9 @@ namespace Cities.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<PointOfInterestDtoValidator<PointOfInterestDto>>());
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<PointOfInterestDtoValidator<PointOfInterestDto>>());
             services.AddAutoMapper(typeof(PointOfInterestProfile));
             services.AddSingleton<CitiesContext>();
         }
